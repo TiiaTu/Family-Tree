@@ -9,14 +9,14 @@ namespace Inlämning2_Tiia
 {
     class PersonCrud
     {
-        public static Person CreateAndFind(string firstName, string lastName)
+        public static Person CreatePerson(string firstName, string lastName)
         {
             using (var db = new PersonContext())
             {
                 var person = db.Persons.
                             FirstOrDefault(
-                                h => h.FirstName == firstName && // Sök på namnet
-                                h.LastName == lastName
+                                p => p.FirstName == firstName && // Sök på namnet
+                                p.LastName == lastName
                                 );
                 if (person == null) // om personen inte finns, skapa den
                 {
@@ -28,9 +28,51 @@ namespace Inlämning2_Tiia
             }
         }
 
-        public void Read(int id) { }
-        public void Read(string firstName) { }
-        public void Read(string firstName, string lastName) { }
+
+        public static Person FindPerson(int id)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.Persons.
+                            FirstOrDefault(
+                                p => p.Id == id); //sök på Id
+                if (person == null)
+                {
+                    Console.WriteLine("There is no persons on this Id");
+                }
+                else
+                {
+                    Console.WriteLine($"The person at Id {id} is {person.FirstName} {person.LastName}");
+                }
+                return person;
+
+            }
+        }
+
+        public static Person FindPerson(string firstName)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.Persons.Where(p => p.FirstName.Contains(firstName))
+                    .ToList(); ; //sök på Id
+
+                if (person == null)
+                {
+                    Console.WriteLine("There is no persons on this Id");
+                }
+                else
+                {
+                   
+                }
+                return person;
+
+            }
+        }
+            
+        public void Read(string firstName, string lastName) 
+        { 
+
+        }
         public void Update() { }
         public void Delete() { }
     }

@@ -13,17 +13,18 @@ namespace Inlämning2_Tiia
             var fname = Console.ReadLine();
             Console.WriteLine("Enter a last name of a person: ");
             var lname = Console.ReadLine();
-            var person = PersonCrud.CreateAndFind(fname, lname);
+            var person = PersonCrud.CreatePerson(fname, lname);
 
+            //var person2= 
             //using (var db = new PersonContext())
             //{
             //    db.Persons.Add(
             //        new Models.Person { FirstName = "Ned", LastName = "Stark" }
             //    );
-          
+
             //    db.SaveChanges();
             //}
-            
+
         }
     }
 }
