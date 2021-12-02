@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Inlämning2_Tiia.Database
 {
-    class DbClass : DbContext
+    public class PersonContext : DbContext
     {
-        DbSet<Person> Persons { get; set; }
+        public DbSet<Person> Persons { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=TTGenealogi;Trusted_Connection=True;");

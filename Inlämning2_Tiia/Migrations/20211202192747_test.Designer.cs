@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inlämning2_Tiia.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    [Migration("20211201124708_First")]
-    partial class First
+    [Migration("20211202192747_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,8 +27,8 @@ namespace Inlämning2_Tiia.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Father")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("FatherId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -36,8 +36,8 @@ namespace Inlämning2_Tiia.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Mother")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MotherId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
