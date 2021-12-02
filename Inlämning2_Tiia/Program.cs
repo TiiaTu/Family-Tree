@@ -8,8 +8,7 @@ namespace Inlämning2_Tiia
         static void Main(string[] args)
         {
             //instansiera och starta familjeträdet
-
-            
+          
             Console.WriteLine("Enter a first name of a person: ");
             var fname = Console.ReadLine();
             Console.WriteLine("Enter a last name of a person: ");
