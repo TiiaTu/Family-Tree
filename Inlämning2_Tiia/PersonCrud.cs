@@ -11,7 +11,11 @@ namespace Inlämning2_Tiia
     {
         internal void Start()
         {
-            //starta programmet
+            Console.WriteLine("Enter persons first name: ");
+            var firstName = Console.ReadLine();
+            Console.WriteLine("Enter persons last name: ");
+            var lastName = Console.ReadLine();
+            CreatePerson(firstName, lastName);
         }
 
         public static Person CreatePerson(string firstName, string lastName)
