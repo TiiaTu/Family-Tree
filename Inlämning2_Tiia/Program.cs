@@ -21,7 +21,7 @@ namespace Inlämning2_Tiia
             //var person2 =
             using (var db = new PersonContext())
             {
-                db.Persons.Add(
+                db.People.Add(
                     new Person { FirstName = "Robb", LastName = "Stark", Mother=null, Father=null }
                     );
 

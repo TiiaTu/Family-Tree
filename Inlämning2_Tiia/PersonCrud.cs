@@ -22,7 +22,7 @@ namespace Inlämning2_Tiia
         {
             using (var db = new PersonContext())
             {
-                var person = db.Persons.
+                var person = db.People.
                             FirstOrDefault(
                                 p => p.FirstName == firstName && // Sök på namnet
                                 p.LastName == lastName
@@ -30,7 +30,7 @@ namespace Inlämning2_Tiia
                 if (person == null) // om personen inte finns, skapa den
                 {
                     person = new Person { FirstName = firstName, LastName = lastName };
-                    db.Persons.Add(person);
+                    db.People.Add(person);
                     db.SaveChanges(); // objektet uppdateras med ID efter save
                 }
                 return person;
@@ -41,7 +41,7 @@ namespace Inlämning2_Tiia
         {
             using (var db = new PersonContext())
             {
-                var person = db.Persons.
+                var person = db.People.
                             FirstOrDefault(
                                 p => p.Id == id); //sök på Id
                 if (person == null)
@@ -56,28 +56,25 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //public static Person FindPerson(string firstName)
-        //{
-        //    using (var db = new PersonContext())
-        //    {
-        //        var person = db.Persons.Where(p => p.FirstName.Contains(firstName))
-        //            .ToList(); ; //sök på Id
+        public static Person FindPerson(string firstName)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.People.Where(p => p.FirstName.Contains(firstName))
+                    .ToList(); ; //sök på Id
 
-        //        if (person == null)
-        //        {
-        //            Console.WriteLine("There is no persons with this name");
-        //        }
-        //        else
-        //        {
-        //            foreach (var item in db.Persons)
-        //            {
+                if (person == null)
+                {
+                    Console.WriteLine("There is no persons with this name");
+                }
+                else
+                {
+                    DisplayList(firstName)
+                }
+                return person;
+            }
+        }
 
-        //            }
-        //        }
-        //        return person;
-        //    }
-        //}
-            
         //public void Read(string firstName, string lastName) 
         //{
         //    using (var db = new PersonContext())
@@ -99,13 +96,41 @@ namespace Inlämning2_Tiia
         //        return person;
         //    }
         //}
-        public void Update() 
+        //public void Update()
+        //{
+
+        //}
+        //public void Delete(Person)
+        //{
+        //    using (var db = new PersonContext())
+        //    {
+        //        var person = db.People.
+        //                    FirstOrDefault(
+        //                        p => p.FirstName == firstName && // Sök på namnet
+        //                        p.LastName == lastName
+        //                        );
+        //        if (person == null) // om personen inte finns, skapa den
+        //        {
+        //            person = new Person { FirstName = firstName, LastName = lastName };
+        //            db.People.Add(person);
+        //            db.SaveChanges(); // objektet uppdateras med ID efter save
+        //        }
+        //        return person;
+
+
+        //public void Delete(int id)
+        //{
+
+        //}
+
+        private static void DisplayList(List<Person> people, string name)
         {
-
-        }
-        public void Delete() 
-        { 
-
+            Console.WriteLine(name);
+            foreach (var person in people.OrderBy(n => n.LastName).ThenBy(n => n.FirstName))
+            {
+                Console.WriteLine(person);
+            }
+            Console.WriteLine();
         }
     }
 }
