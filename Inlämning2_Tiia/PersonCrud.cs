@@ -11,10 +11,14 @@ namespace Inlämning2_Tiia
     {
         internal void Start()
         {
+            var firstName = "";
+            var lastName = "";
+            var id = 0;
+
             Console.WriteLine("Enter persons first name: ");
-            var firstName = Console.ReadLine();
+            firstName = Console.ReadLine();
             Console.WriteLine("Enter persons last name: ");
-            var lastName = Console.ReadLine();
+            lastName = Console.ReadLine();
             CreatePerson(firstName, lastName);
         }
 
@@ -56,12 +60,12 @@ namespace Inlämning2_Tiia
             }
         }
 
-        public static Person FindPerson(string firstName)
+        public static Person FindPerson(string firstName, string lastName)
         {
             using (var db = new PersonContext())
             {
-                var person = db.People.Where(p => p.FirstName.Contains(firstName))
-                    .ToList(); ; //sök på Id
+                var person = db.People.Where(p => p.FirstName.Contains(firstName) ||
+                                            p.LastName.Contains(lastName));
 
                 if (person == null)
                 {
@@ -69,11 +73,57 @@ namespace Inlämning2_Tiia
                 }
                 else
                 {
-                    DisplayList(firstName)
+                    DisplayList(firstName, lastName)
                 }
                 return person;
             }
         }
+
+        public void GetMother(string firstName)
+        {
+            //Fråga efter ett namn
+            using (var db = new PersonContext())
+            {
+                Console.WriteLine("Enter the first name of the person: ");
+                var person = db.People.
+                            FirstOrDefault(
+                                p => p.FirstName == firstName); //sök på Id
+                if (person == null)
+                {
+                    Console.WriteLine("There is no persons with that name");
+                }
+                else
+                {
+                    Console.WriteLine($"The person at Id {id} is {person.FirstName} {person.LastName}");
+                }
+            }
+
+            Console.WriteLine("Enter the first name of the person: ");
+            var person = db.People.
+                        FirstOrDefault(
+                            p => p.FirstName == firstName); //sök på Id
+            if (person == null)
+            {
+                Console.WriteLine("There is no persons with that name");
+            }
+            else
+            {
+                Console.WriteLine($"The person at Id {id} is {person.FirstName} {person.LastName}");
+            }
+            return person;
+
+            //Avbryt om det är tomt
+
+            //Fråga efter förälders namn
+
+
+            //Avbryt om det är tom
+
+            //Sök namn
+
+            //Koppla föräldrer till personen
+        }
+
 
         //public void Read(string firstName, string lastName) 
         //{
