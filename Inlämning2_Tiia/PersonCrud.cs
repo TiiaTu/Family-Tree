@@ -42,7 +42,7 @@ namespace Inlämning2_Tiia
                                 p => p.Id == id); //sök på Id
                 if (person == null)
                 {
-                    Console.WriteLine("There is no persons on this Id");
+                    Console.WriteLine("There is no persons with this Id");
                 }
                 else
                 {
@@ -95,7 +95,13 @@ namespace Inlämning2_Tiia
         //        return person;
         //    }
         //}
-        public void Update() { }
-        public void Delete() { }
+        public void Update() 
+        {
+
+        }
+        public void Delete() 
+        { 
+
+        }
     }
 }
