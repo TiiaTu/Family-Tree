@@ -19,11 +19,19 @@ namespace Inlämning2_Tiia
             //var person = PersonCrud.CreatePerson(fname, lname);
 
             //var person2 =
+            //using (var db = new PersonContext())
+            //{
+            //    db.People.Add(
+            //        new Person { FirstName = "Robb", LastName = "Stark", Mother=null, Father=null }
+            //        );
+
+            //    db.SaveChanges();
+            //}
+
             using (var db = new PersonContext())
             {
-                db.People.Add(
-                    new Person { FirstName = "Robb", LastName = "Stark", Mother=null, Father=null }
-                    );
+                var newPerson = db.People.Add(new Person { FirstName = "Sansa", LastName = "Stark" });
+                    
 
                 db.SaveChanges();
             }

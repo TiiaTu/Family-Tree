@@ -11,7 +11,6 @@ namespace Inlämning2_Tiia.Database
     {
         public DbSet<Person> People { get; set; }
         
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=TTGenealogi;Trusted_Connection=True;");
