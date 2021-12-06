@@ -10,16 +10,19 @@ namespace Inlämning2_Tiia
     {
         public void Menu()
         {
-            Console.WriteLine("Welcome to the .... family tree");
+            Console.Clear();
+            Console.WriteLine("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
+            Console.WriteLine("Welcome to the Stark family tree");
 
-            Console.WriteLine(@" [1] - 
-[2] - 
-[3] - 
-[4] - 
-[5] - 
-[6] - 
-[7] - 
+            Console.WriteLine(@" [1] - Create a person
+[2] - Get mother 
+[3] - Get father
+[4] - Update information
+[5] - Delete
+[6] - Show the family tree
+[7] - Exit
 [8] - ");
+            Console.WriteLine("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
 
             _ = int.TryParse(Console.ReadLine(), out int input);
 

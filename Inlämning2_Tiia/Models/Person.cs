@@ -15,17 +15,10 @@ namespace Inlämning2_Tiia
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        [ForeignKey("MotherId")]
-        public Person Mother { get; set; }
+        public int? MotherId { get; set; }
+        public int? FatherId { get; set; }
 
-        [ForeignKey("FatherId")]
-        public Person Father { get; set; }
-    }
-    public interface IParent
-    {
-        ICollection<Person> Children { get; set; }
-    }
+        public override string ToString() => FirstName + " " + LastName;
 
-    
-    
+    }  
 }
