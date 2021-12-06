@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inlämning2_Tiia.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    [Migration("20211206170424_testing")]
-    partial class testing
+    [Migration("20211206180638_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

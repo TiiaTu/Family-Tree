@@ -14,13 +14,15 @@ namespace Inlämning2_Tiia.Utils
             Console.WriteLine("Welcome to the Targaryen family tree");
 
             Console.WriteLine(@" [1] - Create a person
-[2] - Get mother 
-[3] - Get father
+[2] - Find parents
+[3] - Find father
 [4] - Update information
-[5] - Delete
-[6] - Show the family tree
-[7] - Exit
-[8] - ");
+[5] - 
+[6] - List by first letter
+[7] - List all
+[8] - Show 
+[7] - Delete person
+[8] - Exit");
             Console.WriteLine("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
         }
     }

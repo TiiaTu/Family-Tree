@@ -13,21 +13,9 @@ namespace Inlämning2_Tiia
         {
             using (var db = new PersonContext())
             {
-                db.Database.EnsureCreated();
-
                 Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer till listan
                 db.SaveChanges();
             }
-
-            //var firstName = "";
-            //var lastName = "";
-            //var id = 0;
-
-            //Console.WriteLine("Enter persons first name: ");
-            //firstName = Console.ReadLine();
-            //Console.WriteLine("Enter persons last name: ");
-            //lastName = Console.ReadLine();
-            //CreatePerson(firstName, lastName);
         }
 
 
@@ -59,7 +47,7 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //---------------söker en person på Id
+        //---------------söker en person på Id-----------------------
         public static Person FindPerson(int id)
         {
             using (var db = new PersonContext())
@@ -99,107 +87,109 @@ namespace Inlämning2_Tiia
 
         //    }
         //}
-
-        public void GetMother(string firstName) //TODO: gör en likadan till fatherId
+        public void FindParents(string firstName, string lastName)
         {
-            //Fråga efter ett namn
-            using (var db = new PersonContext())
+            public void GetMother(string firstName) //TODO: gör en likadan till fatherId
             {
-                Console.WriteLine("Enter the first name of the person: ");
-                var person = db.People.
-                            FirstOrDefault(
-                                p => p.FirstName == firstName); //sök på förnamn
-                if (person == null)
+                //Fråga efter ett namn
+                using (var db = new PersonContext())
                 {
-                    Console.WriteLine("There is no persons with that name");
-                }
-                else
-                {
-                    Console.WriteLine($"The is {person.FirstName} {person.LastName}");
+                    Console.WriteLine("Enter the first name of the person: ");
+                    var person = db.People.
+                                FirstOrDefault(
+                                    p => p.FirstName == firstName); //sök på förnamn
+                    if (person == null)
+                    {
+                        Console.WriteLine("There is no persons with that name");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The is {person.FirstName} {person.LastName}");
+                    }
                 }
             }
-        }
-        public static Person FindMother(string fname, string lname)
-        {
-            using (var db = new PersonContext())
+            public static Person FindMother(string fname, string lname)
             {
-                var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
-                if (person != null)
+                using (var db = new PersonContext())
                 {
-                    var currentMother = person.MotherId;
-                    var currentMotherName = db.People.FirstOrDefault(mom => mom.Id == currentMother);
-                    Console.WriteLine($"\n{person}s current mother is {currentMotherName}");
+                    var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
+                    if (person != null)
+                    {
+                        var currentMother = person.MotherId;
+                        var currentMotherName = db.People.FirstOrDefault(mom => mom.Id == currentMother);
+                        Console.WriteLine($"\n{person}s current mother is {currentMotherName}");
+                    }
+                    else Console.WriteLine("The person you searched for doesn't exist!");
+                    return person;
                 }
-                else Console.WriteLine("The person you searched for doesn't exist!");
-                return person;
             }
+
+            //public static Person SetMother(string fname, string lname, string mfname, string mlname)
+            //{
+            //    using (var db = new PersonContext())
+            //    {
+            //        //Sök person, hämta ID
+            //        var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
+            //        if (person != null)
+            //        {
+            //            //Sök persons mamma, hämta mamma ID
+            //            var mom = db.People.FirstOrDefault(m => m.FirstName == mfname && m.LastName == mlname);
+
+            //            if (mom != null) //Om mor finns, uppdatera ID kopplingen
+            //            {
+            //                var currentMother = person.MotherId;
+            //                Console.WriteLine($"\nYou just changed {person}'s mother to {mom}!");
+            //                person.MotherId = mom.ID;
+            //                db.SaveChanges();
+            //            }
+            //            else Console.WriteLine($"You have to enter a person that exist in the family tree to become {fname} {lname}'s mom!");
+            //        }
+            //        else Console.WriteLine("The person you searched for doesn't exist!");
+            //        return person;
+            //    }
+            //}
+
+            //public static Person FindFather(string fname, string lname)
+            //{
+            //    using (var db = new PersonContext())
+            //    {
+            //        var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
+            //        if (person != null)
+            //        {
+            //            var currentFather = person.MotherId;
+            //            var currentFatherName = db.People.FirstOrDefault(mom => mom.ID == currentFather);
+            //            Console.WriteLine($"\n{person}s current mother is {currentFatherName}");
+            //        }
+            //        else Console.WriteLine("The person you searched for doesn't exist!");
+            //        return person;
+            //    }
+            //}
+
+            //public static Person SetFather(string fname, string lname, string mfname, string mlname)
+            //{
+            //    using (var db = new PersonContext())
+            //    {
+            //        //Sök person, hämta ID
+            //        var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
+            //        if (person != null)
+            //        {
+            //            //Sök persons mamma, hämta mamma ID
+            //            var dad = db.People.FirstOrDefault(m => m.FirstName == mfname && m.LastName == mlname);
+
+            //            if (dad != null) //Om mor finns, uppdatera ID kopplingen
+            //            {
+            //                var currentMother = person.MotherId;
+            //                Console.WriteLine($"\nYou just changed {person}'s mother to {mom}!");
+            //                person.MotherId = dad.ID;
+            //                db.SaveChanges();
+            //            }
+            //            else Console.WriteLine($"You have to enter a person that exist in the family tree to become {fname} {lname}'s mom!");
+            //        }
+            //        else Console.WriteLine("The person you searched for doesn't exist!");
+            //        return person;
+            //    }
+            //}
         }
-
-        //public static Person SetMother(string fname, string lname, string mfname, string mlname)
-        //{
-        //    using (var db = new PersonContext())
-        //    {
-        //        //Sök person, hämta ID
-        //        var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
-        //        if (person != null)
-        //        {
-        //            //Sök persons mamma, hämta mamma ID
-        //            var mom = db.People.FirstOrDefault(m => m.FirstName == mfname && m.LastName == mlname);
-
-        //            if (mom != null) //Om mor finns, uppdatera ID kopplingen
-        //            {
-        //                var currentMother = person.MotherId;
-        //                Console.WriteLine($"\nYou just changed {person}'s mother to {mom}!");
-        //                person.MotherId = mom.ID;
-        //                db.SaveChanges();
-        //            }
-        //            else Console.WriteLine($"You have to enter a person that exist in the family tree to become {fname} {lname}'s mom!");
-        //        }
-        //        else Console.WriteLine("The person you searched for doesn't exist!");
-        //        return person;
-        //    }
-        //}
-
-        //public static Person FindFather(string fname, string lname)
-        //{
-        //    using (var db = new PersonContext())
-        //    {
-        //        var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
-        //        if (person != null)
-        //        {
-        //            var currentFather = person.MotherId;
-        //            var currentFatherName = db.People.FirstOrDefault(mom => mom.ID == currentFather);
-        //            Console.WriteLine($"\n{person}s current mother is {currentFatherName}");
-        //        }
-        //        else Console.WriteLine("The person you searched for doesn't exist!");
-        //        return person;
-        //    }
-        //}
-
-        //public static Person SetFather(string fname, string lname, string mfname, string mlname)
-        //{
-        //    using (var db = new PersonContext())
-        //    {
-        //        //Sök person, hämta ID
-        //        var person = db.People.FirstOrDefault(p => p.FirstName == fname && p.LastName == lname);
-        //        if (person != null)
-        //        {
-        //            //Sök persons mamma, hämta mamma ID
-        //            var dad = db.People.FirstOrDefault(m => m.FirstName == mfname && m.LastName == mlname);
-
-        //            if (dad != null) //Om mor finns, uppdatera ID kopplingen
-        //            {
-        //                var currentMother = person.MotherId;
-        //                Console.WriteLine($"\nYou just changed {person}'s mother to {mom}!");
-        //                person.MotherId = dad.ID;
-        //                db.SaveChanges();
-        //            }
-        //            else Console.WriteLine($"You have to enter a person that exist in the family tree to become {fname} {lname}'s mom!");
-        //        }
-        //        else Console.WriteLine("The person you searched for doesn't exist!");
-        //        return person;
-        //    }
-        //}
 
 
         //public void Read(string firstName, string lastName)
