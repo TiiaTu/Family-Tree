@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inlämning2_Tiia.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    [Migration("20211202210653_First")]
+    [Migration("20211206151217_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,26 +42,7 @@ namespace Inlämning2_Tiia.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FatherId");
-
-                    b.HasIndex("MotherId");
-
-                    b.ToTable("Persons");
-                });
-
-            modelBuilder.Entity("Inlämning2_Tiia.Person", b =>
-                {
-                    b.HasOne("Inlämning2_Tiia.Person", "Father")
-                        .WithMany()
-                        .HasForeignKey("FatherId");
-
-                    b.HasOne("Inlämning2_Tiia.Person", "Mother")
-                        .WithMany()
-                        .HasForeignKey("MotherId");
-
-                    b.Navigation("Father");
-
-                    b.Navigation("Mother");
+                    b.ToTable("People");
                 });
 #pragma warning restore 612, 618
         }

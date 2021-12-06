@@ -10,8 +10,8 @@ namespace Inlämning2_Tiia
         {
             //instansiera och starta familjeträdet
 
-            //var start = new PersonCrud();
-            //start.Start();
+            var start = new PersonCrud();
+            start.Start();
 
             //Console.WriteLine("Enter a first name of a person: ");
             //var fname = Console.ReadLine();
@@ -29,28 +29,7 @@ namespace Inlämning2_Tiia
             //    db.SaveChanges();
             //}
 
-            using (var db = new PersonContext())
-            {
-                //var newPerson = db.People.Add(new Person { FirstName = "Sansa", LastName = "Stark" });
-
-//                IList<Person> newpeople = new List<Person>() {
-//                                    new Person(){
-//                                        //ID = 1,
-//                                        FirstName = "Catelyn",
-//                                        LastName = "Tully",
-//                                        MotherId = null,
-//                                        FatherId = null,
-//                                    },
-//                                    new Person(){
-//                                        //ID = 2,
-//                                        FirstName = "Eddard Stark",
-//                                        LastName = "",
-//                                        MotherId = null,
-//                                        FatherId = null,
-
-//db.Add(newpeople);
-//                db.SaveChanges();
-            }
+            
 
 
 

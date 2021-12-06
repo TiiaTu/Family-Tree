@@ -40,26 +40,7 @@ namespace Inlämning2_Tiia.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FatherId");
-
-                    b.HasIndex("MotherId");
-
-                    b.ToTable("Persons");
-                });
-
-            modelBuilder.Entity("Inlämning2_Tiia.Person", b =>
-                {
-                    b.HasOne("Inlämning2_Tiia.Person", "Father")
-                        .WithMany()
-                        .HasForeignKey("FatherId");
-
-                    b.HasOne("Inlämning2_Tiia.Person", "Mother")
-                        .WithMany()
-                        .HasForeignKey("MotherId");
-
-                    b.Navigation("Father");
-
-                    b.Navigation("Mother");
+                    b.ToTable("People");
                 });
 #pragma warning restore 612, 618
         }
