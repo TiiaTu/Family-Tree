@@ -9,7 +9,7 @@ namespace Inlämning2_Tiia
 {
     class Menuclass
     {
-        public static void Menu()
+        public static void Menu(string firstName, string lastName, string fName, string lName, string momFirstName, string momLastName, string dadFirstName, string dadLastName)
         {
             Visual.SpoilerAlert();
             Visual.MainMenu();
@@ -19,38 +19,34 @@ namespace Inlämning2_Tiia
             switch (menuChoise)
             {
                 case 1:
-                    PersonCrud.FindAndCreate();
-                    Console.Clear();
+                    PersonCrud.FindAndCreate(firstName, lastName);
                     break;
-                //case 2:
-                //    PersonCrud.FindParents();
-                //    Console.Clear();
-                //    break;
-                //case 3:
-                //    PersonCrud.ReadFirstLetter();
-                //    Console.Clear();
-                //    break;
-                //case 4:
-                //    PersonCrud.ReadBirthYear();
-                //    Console.Clear();
-                //    break;
-                //case 5:
-                //    PersonCrud.Update();
-                //    Console.Clear();
-                //    break;
-                //case 6:
-                //    PersonCrud.Delete();
-                //    Console.Clear();
-                //    break;
+                case 2:
+                    PersonCrud.FindParents(firstName, lastName,momFirstName,momLastName,dadFirstName,dadLastName);
+                    break;
+                case 3:
+                    PersonCrud.Update(firstName,lastName, fName, lName);
+                    break;
+                case 4:
+                    PersonCrud.ShowSiblings(); //inte klart
+                    break;
+                case 5:
+                    PersonCrud.ShowChildren(); //inte klart
+                    break;
+                case 6:
+                    PersonCrud.ShowGrandparents(); //inte klart 
+                    break;
                 case 7:
-                    // parents
-
+                    PersonCrud.DisplayAll(people, name);
                     break;
                 case 8:
-                    // children
-
+                    PersonCrud.ListByLetter();
                     break;
                 case 9:
+                    PersonCrud.Delete();
+
+                    break;
+                case 10:
                     //siblings
 
                     break;
