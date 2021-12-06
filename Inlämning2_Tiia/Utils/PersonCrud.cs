@@ -11,6 +11,8 @@ namespace Inlämning2_Tiia
     {
         public void Start()
         {
+            Menuclass.Menu();
+
             using (var db = new PersonContext())
             {
                 Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer till listan
@@ -18,9 +20,7 @@ namespace Inlämning2_Tiia
             }
         }
 
-
-
-        //--------------skapa en person med för- och efternamn
+        //--------------skapa en person med för- och efternamn--------------------------
         public static Person FindAndCreate(string firstName, string lastName)
         {
             using (var db = new PersonContext())
@@ -47,49 +47,10 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //---------------söker en person på Id-----------------------
-        public static Person FindPerson(int id)
-        {
-            using (var db = new PersonContext())
-            {
-                var person = db.People.
-                            FirstOrDefault(
-                                p => p.Id == id);
-
-                if (person == null)
-                {
-                    Console.WriteLine("There is no person with this Id");
-                }
-                else
-                {
-                    Console.WriteLine($"The person at Id {id} is {person.FirstName} {person.LastName}");
-                }
-                return person;
-            }
-        }
-
-        //public static Person findperson(string firstname, string lastname)
-        //{
-        //    using (var db = new Personcontext())
-        //    {
-        //        var person = db.people.where(p => p.firstname.contains(firstname) ||
-        //                                    p.lastname.contains(lastname));
-
-        //        if (person == null)
-        //        {
-        //            console.writeline("there is no persons with this name");
-        //        }
-        //        else
-        //        {
-        //            displaylist(firstname, lastname)
-        //        }
-        //        return person;
-
-        //    }
-        //}
         public void FindParents(string firstName, string lastName)
         {
-            public void GetMother(string firstName) //TODO: gör en likadan till fatherId
+            Console.WriteLine("Whic");
+            void GetMother(string firstName) //TODO: gör en likadan till fatherId
             {
                 //Fråga efter ett namn
                 using (var db = new PersonContext())
@@ -108,7 +69,7 @@ namespace Inlämning2_Tiia
                     }
                 }
             }
-            public static Person FindMother(string fname, string lname)
+            static Person FindMother(string fname, string lname)
             {
                 using (var db = new PersonContext())
                 {
@@ -217,38 +178,71 @@ namespace Inlämning2_Tiia
         //{
 
         //}
-        //public void Delete(Person)
-        //{
-        //    using (var db = new PersonContext())
-        //    {
-        //        var person = db.People.
-        //                    FirstOrDefault(
-        //                        p => p.FirstName == firstName && // Sök på namnet
-        //                        p.LastName == lastName
-        //                        );
-        //        if (person == null) // om personen inte finns, skapa den
-        //        {
-        //            person = new Person { FirstName = firstName, LastName = lastName };
-        //            db.People.Add(person);
-        //            db.SaveChanges(); // objektet uppdateras med ID efter save
-        //        }
-        //        return person;
 
+        //----------ta bort en person via för- och efternamn-----------------------------
+        public static Person Delete(string firstName, string lastName)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.People.
+                            FirstOrDefault(
+                                p => p.FirstName == firstName &&
+                                p.LastName == lastName
+                                );
+                if (person == null)
+                {
+                    db.People.Remove(person);
+                    db.SaveChanges();
+                }
+                return person;
+            }
+        }
 
-        //        public void Delete(int id)
-        //        {
+        //-----------ta bort en person via Id----------------------------------------
+        public static Person Delete(int id)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.People.
+                            FirstOrDefault(
+                                p => p.Id == id);
 
-        //        }
+                if (person == null)
+                {
+                    db.People.Remove(person);
+                    db.SaveChanges();
+                }
+                return person;
+            }
+        }
 
-        //        private static void DisplayList(List<Person> people, string name)
-        //        {
-        //            Console.WriteLine(name);
-        //            foreach (var person in people.OrderBy(n => n.LastName).ThenBy(n => n.FirstName))
-        //            {
-        //                Console.WriteLine(person);
-        //            }
-        //            Console.WriteLine();
-        //        }
-        //    }
+        //----------------visa alla----------------------------------------------------
+        private static void DisplayAll(List<Person> people, string name)
+        {
+            using var db = new PersonContext();
+            Console.WriteLine("List of all the family members ordered by last name");
+
+            foreach (var person in db.People.OrderBy(n => n.LastName).ThenBy(n => n.FirstName))
+            {
+                Console.WriteLine(person);
+            }
+        }
+
+        //-------------lista efter en bokstav---------------------------------
+        public static void FindByLetter()
+        {
+            using var db = new PersonContext();
+
+            Console.WriteLine("Enter a letter: ");
+            var givenLetter = Console.ReadLine();
+
+            var input = db.People.Where(p => p.FirstName.Contains(givenLetter));
+
+            foreach (var p in input.OrderBy(p=>p.FirstName))
+            {
+                Console.WriteLine(p.FirstName + " " + p.LastName);
+            }
+        }
     }
 }
+
