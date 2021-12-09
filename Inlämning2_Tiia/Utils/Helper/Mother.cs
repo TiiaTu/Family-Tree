@@ -23,16 +23,18 @@ namespace Inlämning2_Tiia.Utils.Helper
             FindMother(firstName, lastName);
             Console.WriteLine($"\nDo you want to change {firstName} {lastName}'s mother? y/n");
             var input = Console.ReadLine().ToLower();
-            //if (input = 'y')
-            //{
-            //    Console.WriteLine("Enter mother's first name: ");
-            //    var momFirstName = Console.ReadLine();
-            //    Console.WriteLine("Enter mother's last name: ");
-            //    var momLastName = Console.ReadLine();
-            //    SetMother(firstName, lastName, momFirstName, momLastName);
-            //}
             
-            
+            if (input == "y")
+            {
+                Console.WriteLine("Enter mother's first name: ");
+                var momFirstName = Console.ReadLine();
+                Console.WriteLine("Enter mother's last name: ");
+                var momLastName = Console.ReadLine();
+                SetMother(firstName, lastName, momFirstName, momLastName);
+            }
+            else return;
+
+
         }
         public static Person FindMother(string firstName, string lastName) //hitta mor till personen
         {

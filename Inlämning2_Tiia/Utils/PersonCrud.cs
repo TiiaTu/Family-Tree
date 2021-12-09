@@ -13,16 +13,12 @@ namespace Inlämning2_Tiia
         {
             Menuclass.Menu();
 
-            using (var db = new PersonContext())
-            {
-                Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer till listan
-                db.SaveChanges();
-            }
+            using var db = new PersonContext();
+            Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer till listan
+            db.SaveChanges();
         }
 
-
-        //--------------[1] skapa en person med för- och efternamn [1]--------------------------
-
+        //-----------------[1] skapa en person med för- och efternamn [1]--------------------------
         public static Person FindAndCreate(string firstName, string lastName)
         {
             using (var db = new PersonContext())
@@ -53,7 +49,7 @@ namespace Inlämning2_Tiia
 
         public static void FindParents(string firstName, string lastName, string momFirstName, string momLastName, string dadFirstName, string dadLastName)
         {
-            Console.WriteLine("Which parent you want to find? \n[1] - Mother \n[2] Father");
+            Console.WriteLine("Which parent do you want to find? \n[1] - Mother \n[2] Father");
 
             int.TryParse(Console.ReadLine(), out int menuChoise);
             switch (menuChoise)
@@ -73,7 +69,7 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //-------------------------[3] Uppdatera uppgifter [3]-----------------------------------
+        //-----------------[3] Uppdatera uppgifter [3]-----------------------------------
 
         public static Person Update(string firstName, string lastName, string fname, string lname)
         {
@@ -95,18 +91,16 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //---------------------[4] Show siblings [4]------------------------
+        //-----------------[4] Show siblings [4]------------------------------
 
 
-        //show children
+        //-----------------[5] Show siblings [5]------------------------------
 
 
+        //-----------------[6] Show grandparents [6]------------------------
 
 
-        //show grandparents
-
-
-        //----------------visa alla----------------------------------------------------
+        //-----------------[7] visa alla [7]----------------------------------------------------
         public static void DisplayAll(List<Person> people, string name)
         {
             using var db = new PersonContext();
@@ -118,7 +112,7 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //------------[8] lista efter angiven bokstav-----------------------------------------
+        //-----------------[8] lista efter angiven bokstav [8]-----------------------------------------
         public static void ListByLetter()
         {
             using var db = new PersonContext();
@@ -135,7 +129,7 @@ namespace Inlämning2_Tiia
         }
 
 
-        //----------[9] ta bort en person via för- och efternamn-----------------------------
+        //-----------------[9] ta bort en person via för- och efternamn [9]-----------------------------
         public static Person Delete(string firstName, string lastName)
         {
             using (var db = new PersonContext())
@@ -153,24 +147,7 @@ namespace Inlämning2_Tiia
                 return person;
             }
         }
-
-        //-----------ta bort en person via Id----------------------------------------
-        public static Person Delete(int id)
-        {
-            using (var db = new PersonContext())
-            {
-                var person = db.People.
-                            FirstOrDefault(
-                                p => p.Id == id);
-
-                if (person == null)
-                {
-                    db.People.Remove(person);
-                    db.SaveChanges();
-                }
-                return person;
-            }
-        }
+     
     }
 }
 

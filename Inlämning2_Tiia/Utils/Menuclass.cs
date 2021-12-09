@@ -10,7 +10,7 @@ namespace Inlämning2_Tiia
 {
     class Menuclass
     {
-        public static void Menu(string firstName, string lastName, string fName, string lName, string momFirstName, string momLastName, string dadFirstName, string dadLastName, List<Person> people, string name)
+        public static void Menu()
         {
             Visual.SpoilerAlert();
             Visual.MainMenu();
@@ -20,31 +20,29 @@ namespace Inlämning2_Tiia
             switch (menuChoise)
             {
                 case 1:
-                    PersonCrud.FindAndCreate(firstName, lastName);
+                    Add();
                     break;
                 case 2:
-                    PersonCrud.FindParents(firstName, lastName, momFirstName, momLastName, dadFirstName, dadLastName);
-                    break;
+                    Parents(); break;
                 case 3:
-                    PersonCrud.Update(firstName, lastName, fName, lName);
+                    Update(); break;
+                case 4:
+                    Siblings(); //inte klart
                     break;
-                //case 4:
-                //    PersonCrud.ShowSiblings(); //inte klart
-                //    break;
-                //case 5:
-                //    PersonCrud.ShowChildren(); //inte klart
-                //    break;
-                //case 6:
-                //    PersonCrud.ShowGrandparents(); //inte klart 
-                //    break;
+                case 5:
+                    Children(); //inte klart
+                    break;
+                case 6:
+                    Grandparents(); //inte klart 
+                    break;
                 case 7:
-                    PersonCrud.DisplayAll(people, name);
+                    ListAll();
                     break;
                 case 8:
-                    PersonCrud.ListByLetter();
+                    ByLetter();
                     break;
                 case 9:
-                    PersonCrud.Delete(firstName, lastName);
+                    Delete();
                     break;
                 case 10:
                     Environment.Exit(0);
@@ -55,6 +53,90 @@ namespace Inlämning2_Tiia
                     Console.ReadKey();
                     break;
             }
+            Console.Clear();
+        }
+
+        private static void Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void ByLetter()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void ListAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Grandparents()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Children()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Siblings()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Parents()
+        {
+            var lastName = ""; //inte så snyggt med alla variabler här, men funkar
+            var momFirstName = "";      
+            var momLastName = "";
+            var dadFirstName = "";
+            var dadLastName = "";
+
+            Write("\tFIND / ADD PARENTS");
+            Write("\n\t----------------");
+
+            Write("\nEnter first name of the person (not parents' name): ");
+            var firstName = Console.ReadLine();
+
+            PersonCrud.FindParents(firstName, lastName, momFirstName, momLastName, dadFirstName, dadLastName);
+        }
+
+        private static void Add()
+        {
+            Header();
+
+            AskForWholeName(out string firstName, out string lastName);
+
+            PersonCrud.FindAndCreate(firstName, lastName);
+
+            Write($"{firstName} {lastName} is now added to the database");
+        }
+
+        private static void Header(string header)
+        {
+            Write("\t"header);
+            Write("\n\t----------------");
+        }
+
+        private static void AskForWholeName(out string firstName, out string lastName)
+        {
+            Write("\nEnter first name of a person: ");
+            firstName = Console.ReadLine();
+            Write("Enter last name of person: ");
+            lastName = Console.ReadLine();
+        }
+
+        //------------little helpers------------------
+        private static void Write(string message)
+        {
+            Console.Write(message);
         }
 
         private static int UserInput()
