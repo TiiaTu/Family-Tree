@@ -11,36 +11,43 @@ namespace Inlämning2_Tiia.Utils.Helper
     {
         public static void PersonsAdded()
         {
-            using (var db = new PersonContext())
+            using (var checker = new PersonContext())
             {
-                db.People.Add(new Person
+                int rows = checker.People.Count();
+                if (rows == 0)
                 {
-                    FirstName = "Rhaegar",
-                    LastName = "Targaryen",
-                    MotherId = 6,
-                    FatherId = 5,
-                });
+                    using (var db = new PersonContext())
+                    {
+                        db.People.Add(new Person
+                        {
+                            FirstName = "Rhaegar",
+                            LastName = "Targaryen",
+                            MotherId = 6,
+                            FatherId = 5,
+                        });
 
-                db.People.Add(new Person
-                {
-                    FirstName = "Viserys",
-                    LastName = "Targaryen",
-                    MotherId = 6,
-                    FatherId = 5,
-                });
-                db.SaveChanges();
+                        db.People.Add(new Person
+                        {
+                            FirstName = "Viserys",
+                            LastName = "Targaryen",
+                            MotherId = 6,
+                            FatherId = 5,
+                        });
+                        db.SaveChanges();
+                    }
+
+                    //CreatePerson("Rhaegar", "Targaryen", 6, 5); //ID = 1
+                    //CreatePerson("Viserys", "Targaryen", 6, 5); //ID = 2
+                    //CreatePerson("Daenerys", "Targaryen", 6, 5); //ID = 3
+                    //CreatePerson("Elia", "Martell", 0, 0);
+                    //CreatePerson("Aerys", "Targaryen", 0, 0);
+                    //CreatePerson("Rhaella", "Targaryen", 0, 0);
+                    //CreatePerson("Lyanna", "Stark", 0, 0);
+                    //CreatePerson("Jon", "Snow", 7, 1);
+                    //CreatePerson("Rhaenys", "Targaryen", 4, 1);
+                    //CreatePerson("Aegon", "Targaryen", 4, 1);
+                }
             }
-
-            //CreatePerson("Rhaegar", "Targaryen", 6, 5); //ID = 1
-            //CreatePerson("Viserys", "Targaryen", 6, 5); //ID = 2
-            //CreatePerson("Daenerys", "Targaryen", 6, 5); //ID = 3
-            //CreatePerson("Elia", "Martell", 0, 0);
-            //CreatePerson("Aerys", "Targaryen", 0, 0);
-            //CreatePerson("Rhaella", "Targaryen", 0, 0);
-            //CreatePerson("Lyanna", "Stark", 0, 0);
-            //CreatePerson("Jon", "Snow", 7, 1);
-            //CreatePerson("Rhaenys", "Targaryen", 4, 1);
-            //CreatePerson("Aegon", "Targaryen", 4, 1);
         }
         public static Person CreatePerson(string firstName, string lastName, int motherId, int fatherId)
         {

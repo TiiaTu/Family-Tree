@@ -1,4 +1,5 @@
 ﻿using Inlämning2_Tiia.Utils;
+using Inlämning2_Tiia.Utils.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Inlämning2_Tiia
 {
     class Menuclass
     {
-        public static void Menu(string firstName, string lastName, string fName, string lName, string momFirstName, string momLastName, string dadFirstName, string dadLastName)
+        public static void Menu(string firstName, string lastName, string fName, string lName, string momFirstName, string momLastName, string dadFirstName, string dadLastName, List<Person> people, string name)
         {
             Visual.SpoilerAlert();
             Visual.MainMenu();
-            
+
             int menuChoise = UserInput();
 
             switch (menuChoise)
@@ -22,20 +23,20 @@ namespace Inlämning2_Tiia
                     PersonCrud.FindAndCreate(firstName, lastName);
                     break;
                 case 2:
-                    PersonCrud.FindParents(firstName, lastName,momFirstName,momLastName,dadFirstName,dadLastName);
+                    PersonCrud.FindParents(firstName, lastName, momFirstName, momLastName, dadFirstName, dadLastName);
                     break;
                 case 3:
-                    PersonCrud.Update(firstName,lastName, fName, lName);
+                    PersonCrud.Update(firstName, lastName, fName, lName);
                     break;
-                case 4:
-                    PersonCrud.ShowSiblings(); //inte klart
-                    break;
-                case 5:
-                    PersonCrud.ShowChildren(); //inte klart
-                    break;
-                case 6:
-                    PersonCrud.ShowGrandparents(); //inte klart 
-                    break;
+                //case 4:
+                //    PersonCrud.ShowSiblings(); //inte klart
+                //    break;
+                //case 5:
+                //    PersonCrud.ShowChildren(); //inte klart
+                //    break;
+                //case 6:
+                //    PersonCrud.ShowGrandparents(); //inte klart 
+                //    break;
                 case 7:
                     PersonCrud.DisplayAll(people, name);
                     break;
@@ -43,25 +44,18 @@ namespace Inlämning2_Tiia
                     PersonCrud.ListByLetter();
                     break;
                 case 9:
-                    PersonCrud.Delete();
-
+                    PersonCrud.Delete(firstName, lastName);
                     break;
                 case 10:
-                    //siblings
-
+                    Environment.Exit(0);
                     break;
-
 
                 default:
                     Console.WriteLine("Enter a number between 1-10.");
                     Console.ReadKey();
                     break;
-
             }
-            Console.Clear();
         }
-
-        
 
         private static int UserInput()
         {
@@ -70,4 +64,5 @@ namespace Inlämning2_Tiia
         }
     }
 }
+
 

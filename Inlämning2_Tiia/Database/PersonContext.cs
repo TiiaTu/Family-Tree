@@ -14,7 +14,7 @@ namespace Inlämning2_Tiia.Database
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer($@"Server=(localdb)\MSSQLLocalDB;Database={DatabaseName};Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer($@"Server=(localdb)\mssqllocaldb;Database={DatabaseName};Trusted_Connection=True;");
         }
     }
 }

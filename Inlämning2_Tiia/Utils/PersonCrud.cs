@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Inlämning2_Tiia
 {
-    public static class PersonCrud
+    public class PersonCrud
     {
         public static void Start()
         {
@@ -20,9 +20,9 @@ namespace Inlämning2_Tiia
             }
         }
 
-        
+
         //--------------[1] skapa en person med för- och efternamn [1]--------------------------
-        
+
         public static Person FindAndCreate(string firstName, string lastName)
         {
             using (var db = new PersonContext())
@@ -50,7 +50,7 @@ namespace Inlämning2_Tiia
         }
 
         //-----------------[2] hitta föräldrarna till en person [2]--------------------------------------------------------------------------------------------
-        
+
         public static void FindParents(string firstName, string lastName, string momFirstName, string momLastName, string dadFirstName, string dadLastName)
         {
             Console.WriteLine("Which parent you want to find? \n[1] - Mother \n[2] Father");
@@ -71,15 +71,15 @@ namespace Inlämning2_Tiia
                     Console.WriteLine("Enter 1 or 2");
                     break;
             }
-        }   
-        
+        }
+
         //-------------------------[3] Uppdatera uppgifter [3]-----------------------------------
-        
+
         public static Person Update(string firstName, string lastName, string fname, string lname)
         {
             using (var db = new PersonContext())
             {
-                var update = db.People.FirstOrDefault(n => n.FirstName == firstName && 
+                var update = db.People.FirstOrDefault(n => n.FirstName == firstName &&
                                                             n.LastName == lastName);
 
                 if (update != null)
@@ -90,7 +90,7 @@ namespace Inlämning2_Tiia
                     db.SaveChanges();
                 }
                 else Console.WriteLine("This person doesn't exist!");
-                
+
                 return update;
             }
         }
@@ -101,11 +101,13 @@ namespace Inlämning2_Tiia
         //show children
 
 
+
+
         //show grandparents
 
 
         //----------------visa alla----------------------------------------------------
-        private static void DisplayAll(List<Person> people, string name)
+        public static void DisplayAll(List<Person> people, string name)
         {
             using var db = new PersonContext();
             Console.WriteLine("List of all the family members ordered by last name");
@@ -135,45 +137,42 @@ namespace Inlämning2_Tiia
 
         //----------[9] ta bort en person via för- och efternamn-----------------------------
         public static Person Delete(string firstName, string lastName)
-    {
-        using (var db = new PersonContext())
         {
-            var person = db.People.
-                        FirstOrDefault(
-                            p => p.FirstName == firstName &&
-                            p.LastName == lastName
-                            );
-            if (person == null)
+            using (var db = new PersonContext())
             {
-                db.People.Remove(person);
-                db.SaveChanges();
+                var person = db.People.
+                            FirstOrDefault(
+                                p => p.FirstName == firstName &&
+                                p.LastName == lastName
+                                );
+                if (person == null)
+                {
+                    db.People.Remove(person);
+                    db.SaveChanges();
+                }
+                return person;
             }
-            return person;
+        }
+
+        //-----------ta bort en person via Id----------------------------------------
+        public static Person Delete(int id)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.People.
+                            FirstOrDefault(
+                                p => p.Id == id);
+
+                if (person == null)
+                {
+                    db.People.Remove(person);
+                    db.SaveChanges();
+                }
+                return person;
+            }
         }
     }
-
-    //-----------ta bort en person via Id----------------------------------------
-    public static Person Delete(int id)
-    {
-        using (var db = new PersonContext())
-        {
-            var person = db.People.
-                        FirstOrDefault(
-                            p => p.Id == id);
-
-            if (person == null)
-            {
-                db.People.Remove(person);
-                db.SaveChanges();
-            }
-            return person;
-        }
-    }
-
-    
-
-    //-------------lista efter en bokstav---------------------------------
-    
 }
+
 
 
