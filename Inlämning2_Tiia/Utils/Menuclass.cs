@@ -88,7 +88,9 @@ namespace Inlämning2_Tiia
 
         private static void Update()
         {
-            throw new NotImplementedException();
+            Header("UPDATE INFORMATION OF A PERSON");
+
+            Write("\tEnter first name of the person you want to update: ");
         }
 
         private static void Parents()
@@ -99,8 +101,7 @@ namespace Inlämning2_Tiia
             var dadFirstName = "";
             var dadLastName = "";
 
-            Write("\tFIND / ADD PARENTS");
-            Write("\n\t----------------");
+            Header("FIND / ADD PARENTS");
 
             Write("\nEnter first name of the person (not parents' name): ");
             var firstName = Console.ReadLine();
@@ -110,7 +111,7 @@ namespace Inlämning2_Tiia
 
         private static void Add()
         {
-            Header();
+            Header("ADD PERSON");
 
             AskForWholeName(out string firstName, out string lastName);
 
@@ -121,7 +122,8 @@ namespace Inlämning2_Tiia
 
         private static void Header(string header)
         {
-            Write("\t"header);
+            Write("\t");
+            Write(header);
             Write("\n\t----------------");
         }
 
@@ -133,7 +135,8 @@ namespace Inlämning2_Tiia
             lastName = Console.ReadLine();
         }
 
-        //------------little helpers------------------
+        //-------------little helpers------------------------------------------------------------------
+
         private static void Write(string message)
         {
             Console.Write(message);

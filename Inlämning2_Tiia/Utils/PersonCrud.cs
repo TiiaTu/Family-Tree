@@ -9,7 +9,7 @@ namespace Inlämning2_Tiia
 {
     public class PersonCrud
     {
-        public static void Start()
+        public void Start()
         {
             Menuclass.Menu();
 
