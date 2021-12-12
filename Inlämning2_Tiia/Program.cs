@@ -10,7 +10,6 @@ namespace Inlämning2_Tiia
         {
             var start = new PersonCrud();
             start.Start();
-
         }
     }
 }

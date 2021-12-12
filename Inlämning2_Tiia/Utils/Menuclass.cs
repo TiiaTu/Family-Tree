@@ -13,8 +13,7 @@ namespace Inlämning2_Tiia
             while (true)
             {
                 Visual.MainMenu();
-                int menuChoise = UserInput();
-                Console.Clear();
+                int menuChoise = UserInput(); 
 
                 switch (menuChoise)
                 {
@@ -46,7 +45,7 @@ namespace Inlämning2_Tiia
                         Delete();
                         break;
                     case 10:
-                        Console.WriteLine("Se you soon!");
+                        Console.WriteLine("See you soon!");
                         Environment.Exit(0);
                         break;
 
@@ -62,6 +61,7 @@ namespace Inlämning2_Tiia
 
         private static void Delete()
         {
+            Console.Clear();
             Header("DELETE A PERSON");
 
             Write("\nHow fo you want to delete this person?\n");
@@ -71,11 +71,13 @@ namespace Inlämning2_Tiia
             switch(input)
             {
                 case 1:
+                    PersonCrud.DisplayAll();
                     Write("Enter id: ");
                     var id = UserInput();
                     PersonCrud.DeleteById(id); 
                     break;
                 case 2:
+                    PersonCrud.DisplayAll();
                     AskForWholeName(out string firstName, out string lastName);
                     PersonCrud.DeleteByName(firstName, lastName); 
                     break;
@@ -89,36 +91,42 @@ namespace Inlämning2_Tiia
 
         private static void ByLetter()
         {
+            Console.Clear();
             Console.Write("LIST BY LETTER\n");
             PersonCrud.ListByLetter();
         }
 
         private static void ListAll()
         {
+            Console.Clear();
             Console.Write("LIST OF ALL THE PERSONS IN THE FAMILY TREE\n");
             PersonCrud.DisplayAll();
         }
 
         private static void Grandparents()
         {
+            Console.Clear();
             HeaderAndName("SHOW GRANDPARENTS\t", out string firstName, out string lastName);
             PersonCrud.ShowGrandparents(firstName, lastName);
         }
 
         private static void Children()
         {
+            Console.Clear();
             HeaderAndName("SHOW CHILDREN\t", out string firstName, out string lastName);
             PersonCrud.ShowChildren(firstName, lastName);
         }
 
         private static void Siblings()
         {
+            Console.Clear();
             HeaderAndName("SHOW SIBLINGS\t",out string firstName, out string lastName);
             PersonCrud.FindSiblings(firstName, lastName);
         }
 
         private static void Update()
         {
+            Console.Clear();
             HeaderAndName("UPDATE INFORMATION OF A PERSON\t", out string firstName, out string lastName);
             
             Write("Enter new first name: ");
@@ -131,12 +139,14 @@ namespace Inlämning2_Tiia
 
         private static void Parents()
         {
+            Console.Clear();
             HeaderAndName("FIND / ADD PARENTS\t", out string firstName, out string lastName);
             PersonCrud.FindParents(firstName, lastName);
         }
 
         private static void Add()
         {
+            Console.Clear();
             HeaderAndName("ADD PERSON\t", out string firstName, out string lastName);
             PersonCrud.FindAndCreate(firstName, lastName);
         }

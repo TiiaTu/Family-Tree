@@ -14,8 +14,8 @@ namespace Inlämning2_Tiia
             using var db = new PersonContext();
             Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer på listan
             db.SaveChanges();
-            
-            Menuclass.Menu();     
+
+            Menuclass.Menu();
         }
 
         //-----------------[1] Skapa en person med för- och efternamn [1]----------------------------
@@ -59,9 +59,11 @@ namespace Inlämning2_Tiia
             {
                 case 1:
                     Utils.Helper.Mother.FindMother(firstName, lastName);
+                    Utils.Helper.Mother.ChangeMother(firstName, lastName);
                     break;
                 case 2:
                     Utils.Helper.Father.FindFather(firstName, lastName);
+                    Utils.Helper.Father.ChangeFather(firstName, lastName);
                     break;
                 default:
                     Console.WriteLine("Enter 1 or 2");
@@ -78,14 +80,15 @@ namespace Inlämning2_Tiia
                 var person = db.People.FirstOrDefault(n => n.FirstName == firstName &&
                                                             n.LastName == lastName);
 
-                if (person != null)
+                if (person != null && newFirstName != "" && newLastName != "")
                 {
                     person.FirstName = newFirstName;
                     person.LastName = newLastName;
+                    Console.WriteLine($"You have changed {firstName} {lastName}'s name to {newFirstName} {newLastName}");
 
                     db.SaveChanges();
                 }
-                else Console.WriteLine("This person doesn't exist!");
+                else Console.WriteLine("Cannot update person");
 
                 return person;
             }
@@ -98,20 +101,29 @@ namespace Inlämning2_Tiia
             {
                 var person = db.People.FirstOrDefault(p => p.FirstName == firstName && p.LastName == lastName);
 
-                if (person != null)
+                if (person != null && person.MotherId != null && person.FatherId != null)
                 {
-                    var siblings = db.People.Where(n => n.MotherId == person.MotherId || n.FatherId == person.FatherId).ToList();
-                    Console.Clear();
-                    Console.WriteLine($"Siblings to {firstName} {lastName}; \n");
+                    List<Person> parents = GetParents(person);
 
-                    foreach (var sibling in siblings.OrderBy(s => s.FirstName).ThenBy(s => s.LastName))
+                    if (parents.Count > 0)
                     {
-                        Console.WriteLine(sibling);
+                        var sameMother = person.MotherId;
+                        var sameFather = person.FatherId;
+
+                        var siblings = db.People.Where(p => p.MotherId == sameMother || p.FatherId == sameFather);
+
+
+                        Console.WriteLine($"\n{person}'s siblings:\n");
+
+                        foreach (var sibling in siblings.OrderBy(s => s.FirstName).ThenBy(s => s.LastName))
+                        {
+                            Console.WriteLine(sibling);
+                        }
                     }
-                }
-                else
-                {
-                    Console.WriteLine($"Could not find siblings to {firstName} {lastName}.");
+                    else
+                    {
+                        Console.WriteLine($"Could not find siblings to {firstName} {lastName}.");
+                    }
                 }
                 return person;
             }
@@ -128,7 +140,7 @@ namespace Inlämning2_Tiia
                 if (person != null)
                 {
                     var children = db.People.Where(p => p.MotherId == person.Id || p.FatherId == person.Id).ToList();
-                    Console.WriteLine($"Children to {firstName} {lastName}; \n");
+                    Console.WriteLine($"\nChildren to {firstName} {lastName};");
 
                     foreach (var child in children.OrderBy(s => s.FirstName).ThenBy(s => s.LastName))
                     {
@@ -155,16 +167,16 @@ namespace Inlämning2_Tiia
                 {
                     List<Person> parents = GetParents(person); //lägger in föräldrarna i en lista
 
-                    
+
                     if (parents.Count > 0)
                     {
                         Console.WriteLine($"{firstName} {lastName}'s grandparents are;\n ");
-                        
+
                         foreach (Person p in parents)
                         {
                             List<Person> grandparents = GetParents(p); //lägger in förföräldrarna i en lista
-                            
-                            
+
+
                             if (grandparents.Count > 0)
                             {
                                 foreach (Person gp in grandparents)
@@ -193,8 +205,8 @@ namespace Inlämning2_Tiia
             }
         }
 
-            //-------------helpermetod för ShowGrandparents()
-        private static List<Person> GetParents(Person p) 
+        //-------------helpermetod för ShowGrandparents()
+        private static List<Person> GetParents(Person p)
         {
             List<Person> parentsList = new List<Person>();
 
@@ -211,9 +223,9 @@ namespace Inlämning2_Tiia
         {
             using var db = new PersonContext();
 
-            foreach (var person in db.People.OrderBy(n => n.LastName).ThenBy(n => n.FirstName))
+            foreach (var person in db.People.OrderBy(n => n.FirstName).ThenBy(n => n.LastName))
             {
-                Console.WriteLine($"{person} (Id = {person.Id})");
+                Console.WriteLine($"Id = {person.Id}\t {person}");
             }
         }
 
@@ -227,10 +239,15 @@ namespace Inlämning2_Tiia
 
             var input = db.People.Where(p => p.FirstName.Contains(givenLetter));
 
-            foreach (var p in input.OrderBy(p => p.FirstName))
+            if (input != null)
             {
-                Console.WriteLine(p.FirstName + " " + p.LastName);
+                foreach (var p in input.OrderBy(p => p.FirstName))
+                {
+                    Console.WriteLine(p.FirstName + " " + p.LastName);
+
+                }
             }
+            else Console.WriteLine($"Could not find any names that contain {givenLetter}.");
         }
 
         //-----------------[9a] Ta bort en person via namn [9a]---------------------------

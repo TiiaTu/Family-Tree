@@ -44,6 +44,17 @@ namespace Inlämning2_Tiia.Utils.Helper
             }
         }
 
+        public static void ChangeFather(string firstName, string lastName) //metod för att ändra pappan
+        {
+            Console.WriteLine("Do you want to change father? (if you want to add a father, create a new person via menu first)\ny/n ?");
+            var input = Console.ReadLine().ToLower().Trim();
+
+            if (input == "y")
+            {
+                Utils.Helper.Father.SetFather(firstName, lastName);
+            }
+        }
+
         private static Person SetFather(string firstName, string lastName)  //en metod för att hjälpa ändra pappan
         {
             AddFather(out string dadFirstName, out string dadLastName);
@@ -60,7 +71,7 @@ namespace Inlämning2_Tiia.Utils.Helper
                     if (father != null)
                     {
                         var currentFather = person.FatherId;
-                        person.MotherId = father.Id;
+                        person.FatherId = father.Id;
                         Console.WriteLine($"\nYou've changed {person.FirstName}'s father to {father.FirstName}.");
                         db.SaveChanges();
                     }
@@ -74,9 +85,9 @@ namespace Inlämning2_Tiia.Utils.Helper
 
         private static void AddFather(out string dadFirstName, out string dadLastName)
         {
-            Console.WriteLine("Enter father's first name: ");
+            Console.Write("Enter father's first name: ");
             dadFirstName = Console.ReadLine();
-            Console.WriteLine("Enter father's last name: ");
+            Console.Write("Enter father's last name: ");
             dadLastName = Console.ReadLine();
         }
     }

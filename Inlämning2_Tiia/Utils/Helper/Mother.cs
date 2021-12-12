@@ -44,8 +44,19 @@ namespace Inlämning2_Tiia.Utils.Helper
             }
         }
 
-        private static Person SetMother(string firstName, string lastName) //en metod för att hjälpa ändra mamman
+        public static void ChangeMother(string firstName, string lastName) //metod för att ändra mamman
         {
+            Console.WriteLine("Do you want to change mother? (if you want to add a mother, create a new person via menu first)\ny/n ?");
+            var input = Console.ReadLine().ToLower().Trim();
+
+            if (input == "y")
+            {
+                SetMother(firstName, lastName);
+            }
+        }
+
+        public static Person SetMother(string firstName, string lastName) //en metod för att hjälpa ändra mamman
+        {           
             AddMother(out string momFirstName, out string momLastName);
 
             using (var db = new Database.PersonContext())
@@ -69,15 +80,14 @@ namespace Inlämning2_Tiia.Utils.Helper
                 }
                 else Console.WriteLine("The person you searched for doesn't exist!");
 
-
                 return person;
             }
         }
         private static void AddMother(out string momFirstName, out string momLastName)
         {
-            Console.WriteLine("Enter mother's first name: ");
+            Console.Write("Enter mother's first name: ");
             momFirstName = Console.ReadLine();
-            Console.WriteLine("Enter mother's last name: ");
+            Console.Write("Enter mother's last name: ");
             momLastName = Console.ReadLine();
         }
 
