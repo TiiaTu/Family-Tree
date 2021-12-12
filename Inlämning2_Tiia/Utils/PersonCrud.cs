@@ -18,7 +18,7 @@ namespace Inlämning2_Tiia
             db.SaveChanges();
         }
 
-        //-----------------[1] skapa en person med för- och efternamn [1]--------------------------
+        //-----------------[1] Skapa en person med för- och efternamn [1]----------------------------
         public static Person FindAndCreate(string firstName, string lastName)
         {
             using (var db = new PersonContext())
@@ -45,13 +45,19 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //-----------------[2] hitta föräldrarna till en person [2]--------------------------------------------------------------------------------------------
+        //-----------------[2] Hitta föräldrarna till en person [2]----------------------------------
 
-        public static void FindParents(string firstName, string lastName, string momFirstName, string momLastName, string dadFirstName, string dadLastName)
+        public static void FindParents(string firstName, string lastName)
         {
+            var momFirstName = "";
+            var momLastName = "";
+            var dadFirstName = "";
+            var dadLastName = "";
+
             Console.WriteLine("Which parent do you want to find? \n[1] - Mother \n[2] Father");
 
             int.TryParse(Console.ReadLine(), out int menuChoise);
+
             switch (menuChoise)
             {
                 case 1:
@@ -69,10 +75,13 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //-----------------[3] Uppdatera uppgifter [3]-----------------------------------
+        //-----------------[3] Uppdatera uppgifter [3]-----------------------------------------------
 
-        public static Person Update(string firstName, string lastName, string fname, string lname)
+        public static Person Update(string firstName, string lastName)
         {
+            var newFirstName = "";
+            var newLastName = "";
+
             using (var db = new PersonContext())
             {
                 var update = db.People.FirstOrDefault(n => n.FirstName == firstName &&
@@ -80,8 +89,8 @@ namespace Inlämning2_Tiia
 
                 if (update != null)
                 {
-                    update.FirstName = fname;
-                    update.LastName = lname;
+                    update.FirstName = newFirstName;
+                    update.LastName = newLastName;
 
                     db.SaveChanges();
                 }
@@ -91,20 +100,124 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //-----------------[4] Show siblings [4]------------------------------
+        //-----------------[4] Syskonen till en person [4]-------------------------------------------
+        public static Person FindSiblings(string firstName, string lastName)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.People.FirstOrDefault(p => p.FirstName == firstName && p.LastName == lastName);
 
+                if (person != null)
+                {
+                    var siblings = db.People.Where(n => n.MotherId == person.MotherId || n.FatherId == person.FatherId).ToList();
+                    Console.WriteLine($"Siblings to {firstName} {lastName}; \n");
 
-        //-----------------[5] Show siblings [5]------------------------------
+                    foreach (var sibling in siblings.OrderBy(s => s.FirstName).ThenBy(s => s.LastName))
+                    {
+                        Console.WriteLine(sibling);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Could not find siblings to {firstName} {lastName}.");
+                }
+                return person;
+            }
+        }
 
+        //-----------------[5] Barn till en person [5]-----------------------------------------------
 
-        //-----------------[6] Show grandparents [6]------------------------
-
-
-        //-----------------[7] visa alla [7]----------------------------------------------------
-        public static void DisplayAll(List<Person> people, string name)
+        public static Person ShowChildren(string firstName, string lastName)
         {
             using var db = new PersonContext();
-            Console.WriteLine("List of all the family members ordered by last name");
+            {
+                var person = db.People.FirstOrDefault(p => p.FirstName == firstName && p.LastName == lastName);
+
+                if (person != null)
+                {
+                    var children = db.People.Where(p => p.MotherId == person.Id || p.FatherId == person.Id).ToList();
+                    Console.WriteLine($"Children to {firstName} {lastName}; \n");
+
+                    foreach (var child in children.OrderBy(s => s.FirstName).ThenBy(s => s.LastName))
+                    {
+                        Console.WriteLine(child);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Could not find children for {firstName} {lastName}.");
+                }
+                return person;
+            }
+        }
+
+        //-----------------[6] Show grandparents [6]-------------------------------------------------
+
+        public static Person ShowGrandparents(string firstName, string lastName)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.People.FirstOrDefault(p => p.FirstName == firstName && p.LastName == lastName);
+
+                if (person != null)
+                {
+                    List<Person> parents = GetParents(person); //lägger in föräldrarna i en lista
+
+                    
+                    if (parents.Count > 0)
+                    {
+                        Console.WriteLine($"{firstName} {lastName}'s grandparents are;\n ");
+                        
+                        foreach (Person p in parents)
+                        {
+                            List<Person> grandparents = GetParents(p); //lägger in förföräldrarna i en lista
+                            
+                            
+                            if (grandparents.Count > 0)
+                            {
+                                foreach (Person gp in grandparents)
+                                {
+                                    Console.WriteLine($"{gp.FirstName} {gp.LastName}");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Could not find parents to {p.FirstName} {p.LastName} (parent).");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"Could not find parents to {person.FirstName} {person.LastName}.");
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Person does not exist.");
+                }
+                return person;
+            }
+        }
+
+        // helpermetod för ShowGrandparents()
+        private static List<Person> GetParents(Person p) 
+        {
+            List<Person> parentsList = new List<Person>();
+
+            using (var parents = new PersonContext())
+            {
+                parentsList = parents.People.Where(n => n.Id == p.FatherId || n.Id == p.MotherId).ToList();
+            }
+            return parentsList;
+
+        }
+
+        //-----------------[7] visa alla [7]---------------------------------------------------------
+        public static void DisplayAll()
+        {
+            using var db = new PersonContext();
 
             foreach (var person in db.People.OrderBy(n => n.LastName).ThenBy(n => n.FirstName))
             {
@@ -112,7 +225,7 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //-----------------[8] lista efter angiven bokstav [8]-----------------------------------------
+        //-----------------[8] lista efter angiven bokstav [8]---------------------------------------
         public static void ListByLetter()
         {
             using var db = new PersonContext();
@@ -129,7 +242,7 @@ namespace Inlämning2_Tiia
         }
 
 
-        //-----------------[9] ta bort en person via för- och efternamn [9]-----------------------------
+        //-----------------[9] Ta bort en person [9]---------------------------
         public static Person Delete(string firstName, string lastName)
         {
             using (var db = new PersonContext())
@@ -139,6 +252,7 @@ namespace Inlämning2_Tiia
                                 p => p.FirstName == firstName &&
                                 p.LastName == lastName
                                 );
+
                 if (person == null)
                 {
                     db.People.Remove(person);
@@ -147,9 +261,13 @@ namespace Inlämning2_Tiia
                 return person;
             }
         }
-     
+
+        
     }
 }
+
+
+
 
 
 
