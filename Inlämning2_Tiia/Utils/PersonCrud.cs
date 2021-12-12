@@ -11,11 +11,11 @@ namespace Inlämning2_Tiia
     {
         public void Start()
         {
-            Menuclass.Menu();
-
             using var db = new PersonContext();
             Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer till listan
             db.SaveChanges();
+            
+            Menuclass.Menu();     
         }
 
         //-----------------[1] Skapa en person med för- och efternamn [1]----------------------------
@@ -32,7 +32,7 @@ namespace Inlämning2_Tiia
                 if (person == null) // skapa personen om den inte finns
                 {
                     person = new Person { FirstName = firstName, LastName = lastName };
-                    Console.WriteLine($"{firstName} {lastName} is added to the database");
+                    Console.WriteLine($"\n{firstName} {lastName} is added to the database");
 
                     db.People.Add(person);
                     db.SaveChanges();
@@ -54,14 +54,14 @@ namespace Inlämning2_Tiia
             var dadFirstName = "";
             var dadLastName = "";
 
-            Console.WriteLine("Which parent do you want to find? \n[1] - Mother \n[2] Father");
+            Console.WriteLine("Which parent do you want to find? \n[1] - Mother \n[2] - Father");
+            Console.Write(">");
 
             int.TryParse(Console.ReadLine(), out int menuChoise);
 
             switch (menuChoise)
             {
                 case 1:
-                    Utils.Helper.Mother.SearchMother();
                     Utils.Helper.Mother.FindMother(firstName, lastName);
                     Utils.Helper.Mother.SetMother(firstName, lastName, momFirstName, momLastName);
                     break;
@@ -230,7 +230,7 @@ namespace Inlämning2_Tiia
         {
             using var db = new PersonContext();
 
-            Console.WriteLine("Enter a letter: ");
+            Console.Write("Enter a letter: ");
             var givenLetter = Console.ReadLine();
 
             var input = db.People.Where(p => p.FirstName.Contains(givenLetter));
@@ -253,10 +253,11 @@ namespace Inlämning2_Tiia
                                 p.LastName == lastName
                                 );
 
-                if (person == null)
+                if (person != null)
                 {
                     db.People.Remove(person);
                     db.SaveChanges();
+                    Console.WriteLine($"\n{person.FirstName} {person.LastName} has been removed.");
                 }
                 return person;
             }

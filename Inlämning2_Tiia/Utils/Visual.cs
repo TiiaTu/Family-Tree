@@ -31,7 +31,7 @@ namespace Inlämning2_Tiia.Utils
             Console.WriteLine("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
             Console.ResetColor();
 
-            Console.WriteLine(">> ");
+            Console.Write(">> ");
         }
 
         public static void SpoilerAlert()
@@ -44,6 +44,7 @@ namespace Inlämning2_Tiia.Utils
 contains spoilers for the series Game of Thrones!");
             Console.WriteLine(" \npress enter to continue");
             Console.ReadLine();
+            Console.Clear();
         }
     }
 }

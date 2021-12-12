@@ -10,32 +10,32 @@ namespace Inlämning2_Tiia.Utils.Helper
     {
         //--------------------mor-------------------------------
 
-        public static void SearchMother()
-        {
-            Console.Clear();
-            Console.WriteLine("Search for mother\n");
+        //public static void SearchMother()
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Search for mother\n");
 
-            Console.WriteLine("Enter persons first name: ");
-            var firstName = Console.ReadLine();
-            Console.WriteLine("Enter persons last name: ");
-            var lastName = Console.ReadLine();
+        //    Console.WriteLine("Enter persons first name: ");
+        //    var firstName = Console.ReadLine();
+        //    Console.WriteLine("Enter persons last name: ");
+        //    var lastName = Console.ReadLine();
 
-            FindMother(firstName, lastName);
-            Console.WriteLine($"\nDo you want to change {firstName} {lastName}'s mother? y/n");
-            var input = Console.ReadLine().ToLower();
+        //    FindMother(firstName, lastName);
+        //    Console.WriteLine($"\nDo you want to change {firstName} {lastName}'s mother? y/n");
+        //    var input = Console.ReadLine().ToLower();
             
-            if (input == "y")
-            {
-                Console.WriteLine("Enter mother's first name: ");
-                var momFirstName = Console.ReadLine();
-                Console.WriteLine("Enter mother's last name: ");
-                var momLastName = Console.ReadLine();
-                SetMother(firstName, lastName, momFirstName, momLastName);
-            }
-            else return;
+        //    if (input == "y")
+        //    {
+        //        Console.WriteLine("Enter mother's first name: ");
+        //        var momFirstName = Console.ReadLine();
+        //        Console.WriteLine("Enter mother's last name: ");
+        //        var momLastName = Console.ReadLine();
+        //        SetMother(firstName, lastName, momFirstName, momLastName);
+        //    }
+        //    else return;
 
 
-        }
+        //}
         public static Person FindMother(string firstName, string lastName) //hitta mor till personen
         {
             using (var db = new Database.PersonContext())
@@ -46,8 +46,8 @@ namespace Inlämning2_Tiia.Utils.Helper
                 if (person != null)
                 {
                     var foundMother = person.MotherId;
-                    var motherName = db.People.FirstOrDefault(m => m.Id == foundMother);
-                    Console.WriteLine($"\n{motherName} is {person}s mother");
+                    var mother = db.People.FirstOrDefault(m => m.Id == foundMother);
+                    Console.WriteLine($"\n{mother.FirstName} {mother.LastName} is {person.FirstName} {person.LastName}'s mother");
                 }
                 else Console.WriteLine("The person you searched for doesn't exist!");
 
@@ -70,7 +70,7 @@ namespace Inlämning2_Tiia.Utils.Helper
                     if (mother != null) //Om mor finns, uppdatera Id-kopplingen
                     {
                         var currentMother = person.MotherId;
-                        Console.WriteLine($"\nYou just changed {person}'s mother to {mother}!");
+                        //Console.WriteLine($"\nYou just changed {person}'s mother to {mother}!");
                         person.MotherId = mother.Id;
                         db.SaveChanges();
                     }

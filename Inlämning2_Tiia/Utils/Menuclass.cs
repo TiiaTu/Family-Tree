@@ -9,10 +9,12 @@ namespace Inlämning2_Tiia
         public static void Menu()
         {
             Visual.SpoilerAlert();
+            
             while (true)
             {
                 Visual.MainMenu();
                 int menuChoise = UserInput();
+                Console.Clear();
 
                 switch (menuChoise)
                 {
@@ -44,6 +46,7 @@ namespace Inlämning2_Tiia
                         Delete();
                         break;
                     case 10:
+                        Console.WriteLine("Se you soon!");
                         Environment.Exit(0);
                         break;
 
@@ -59,55 +62,55 @@ namespace Inlämning2_Tiia
 
         private static void Delete()
         {
-            HeaderAndName("DELETE A PERSON", out string firstName, out string lastName);
+            HeaderAndName("DELETE A PERSON\n", out string firstName, out string lastName);
             PersonCrud.Delete(firstName, lastName);
         }
 
         private static void ByLetter()
         {
-            Console.Write("LIST BY LETTER");
+            Console.Write("LIST BY LETTER\n");
             PersonCrud.ListByLetter();
         }
 
         private static void ListAll()
         {
-            Console.Write("LIST OF ALL THE PERSONS IN THE FAMILY TREE");
+            Console.Write("LIST OF ALL THE PERSONS IN THE FAMILY TREE\n");
             PersonCrud.DisplayAll();
         }
 
         private static void Grandparents()
         {
-            HeaderAndName("SHOW GRANDPARENTS", out string firstName, out string lastName);
+            HeaderAndName("SHOW GRANDPARENTS\t", out string firstName, out string lastName);
             PersonCrud.ShowGrandparents(firstName, lastName);
         }
 
         private static void Children()
         {
-            HeaderAndName("SHOW CHILDREN", out string firstName, out string lastName);
+            HeaderAndName("SHOW CHILDREN\t", out string firstName, out string lastName);
             PersonCrud.ShowChildren(firstName, lastName);
         }
 
         private static void Siblings()
         {
-            HeaderAndName("SHOW SIBLINGS",out string firstName, out string lastName);
+            HeaderAndName("SHOW SIBLINGS\t",out string firstName, out string lastName);
             PersonCrud.FindSiblings(firstName, lastName);
         }
 
         private static void Update()
         {
-            HeaderAndName("UPDATE INFORMATION OF A PERSON", out string firstName, out string lastName);
+            HeaderAndName("UPDATE INFORMATION OF A PERSON\t", out string firstName, out string lastName);
             PersonCrud.Update(firstName, lastName);
         }
 
         private static void Parents()
         {
-            HeaderAndName("FIND / ADD PARENTS", out string firstName, out string lastName);
+            HeaderAndName("FIND / ADD PARENTS\t", out string firstName, out string lastName);
             PersonCrud.FindParents(firstName, lastName);
         }
 
         private static void Add()
         {
-            HeaderAndName("ADD PERSON", out string firstName, out string lastName);
+            HeaderAndName("ADD PERSON\t", out string firstName, out string lastName);
             PersonCrud.FindAndCreate(firstName, lastName);
         }
 

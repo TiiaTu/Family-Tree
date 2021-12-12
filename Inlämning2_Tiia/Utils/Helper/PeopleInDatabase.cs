@@ -14,6 +14,7 @@ namespace Inlämning2_Tiia.Utils.Helper
             using (var checker = new PersonContext())
             {
                 int rows = checker.People.Count();
+                
                 if (rows == 0)
                 {
                     using (var db = new PersonContext())
@@ -100,6 +101,8 @@ namespace Inlämning2_Tiia.Utils.Helper
                         
                         db.SaveChanges();
                     }
+
+                    checker.SaveChanges();
 
                     //CreatePerson("Rhaegar", "Targaryen", 6, 5); //ID = 1
                     //CreatePerson("Viserys", "Targaryen", 6, 5); //ID = 2
