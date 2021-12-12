@@ -42,7 +42,7 @@ namespace Inlämning2_Tiia.Utils
             Console.ResetColor();
             Console.WriteLine(@"This family tree you are about to see 
 contains spoilers for the series Game of Thrones!");
-            Console.WriteLine(" \npress enter to continue");
+            Console.WriteLine(" \n[press enter at your own risk]");
             Console.ReadLine();
             Console.Clear();
         }

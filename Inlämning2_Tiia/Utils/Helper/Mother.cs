@@ -10,33 +10,7 @@ namespace Inlämning2_Tiia.Utils.Helper
     {
         //--------------------mor-------------------------------
 
-        //public static void SearchMother()
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine("Search for mother\n");
-
-        //    Console.WriteLine("Enter persons first name: ");
-        //    var firstName = Console.ReadLine();
-        //    Console.WriteLine("Enter persons last name: ");
-        //    var lastName = Console.ReadLine();
-
-        //    FindMother(firstName, lastName);
-        //    Console.WriteLine($"\nDo you want to change {firstName} {lastName}'s mother? y/n");
-        //    var input = Console.ReadLine().ToLower();
-            
-        //    if (input == "y")
-        //    {
-        //        Console.WriteLine("Enter mother's first name: ");
-        //        var momFirstName = Console.ReadLine();
-        //        Console.WriteLine("Enter mother's last name: ");
-        //        var momLastName = Console.ReadLine();
-        //        SetMother(firstName, lastName, momFirstName, momLastName);
-        //    }
-        //    else return;
-
-
-        //}
-        public static Person FindMother(string firstName, string lastName) //hitta mor till personen
+        public static Person FindMother(string firstName, string lastName) ////hittar personens mamma och ger möjlighet att ändra mamman
         {
             using (var db = new Database.PersonContext())
             {
@@ -46,8 +20,23 @@ namespace Inlämning2_Tiia.Utils.Helper
                 if (person != null)
                 {
                     var foundMother = person.MotherId;
-                    var mother = db.People.FirstOrDefault(m => m.Id == foundMother);
-                    Console.WriteLine($"\n{mother.FirstName} {mother.LastName} is {person.FirstName} {person.LastName}'s mother");
+                    var mother = db.People.FirstOrDefault(m => m.Id == foundMother); //koppla personens motherId med mammans Id
+
+                    if (mother != null)
+                    {
+                        Console.WriteLine($"\n{mother.FirstName} {mother.LastName} is {person.FirstName} {person.LastName}'s mother");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Could not find mother to {person.FirstName}");
+                        Console.WriteLine("Do you want to change mother? y/n \n(if you want to add a mother, create a new person via menu first) y/n");
+                        var input = Console.ReadLine().ToLower().Trim();
+
+                        if (input == "y")
+                        {
+                            SetMother(firstName, lastName);
+                        }
+                    }
                 }
                 else Console.WriteLine("The person you searched for doesn't exist!");
 
@@ -55,12 +44,14 @@ namespace Inlämning2_Tiia.Utils.Helper
             }
         }
 
-        public static Person SetMother(string fname, string lname, string momFirstName, string momLastName) //kontrollera och uppdatera kopplingen
+        private static Person SetMother(string firstName, string lastName) //en metod för att hjälpa ändra mamman
         {
+            AddMother(out string momFirstName, out string momLastName);
+
             using (var db = new Database.PersonContext())
             {
-                var person = db.People.FirstOrDefault(p => p.FirstName == fname &&
-                                                            p.LastName == lname);
+                var person = db.People.FirstOrDefault(p => p.FirstName == firstName &&
+                                                            p.LastName == lastName);
 
                 if (person != null)
                 {
@@ -70,16 +61,26 @@ namespace Inlämning2_Tiia.Utils.Helper
                     if (mother != null) //Om mor finns, uppdatera Id-kopplingen
                     {
                         var currentMother = person.MotherId;
-                        //Console.WriteLine($"\nYou just changed {person}'s mother to {mother}!");
                         person.MotherId = mother.Id;
+                        Console.WriteLine($"\nYou've changed {person.FirstName}'s mother to {mother.FirstName}.");
                         db.SaveChanges();
                     }
-                    else Console.WriteLine("Enter an existing person on the family tree!");
+                    else Console.WriteLine("This person doesn't exist in the family tree. Add person first to be able to change mother.");
                 }
                 else Console.WriteLine("The person you searched for doesn't exist!");
+
 
                 return person;
             }
         }
+        private static void AddMother(out string momFirstName, out string momLastName)
+        {
+            Console.WriteLine("Enter mother's first name: ");
+            momFirstName = Console.ReadLine();
+            Console.WriteLine("Enter mother's last name: ");
+            momLastName = Console.ReadLine();
+        }
+
     }
 }
+

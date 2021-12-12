@@ -103,17 +103,6 @@ namespace Inlämning2_Tiia.Utils.Helper
                     }
 
                     checker.SaveChanges();
-
-                    //CreatePerson("Rhaegar", "Targaryen", 6, 5); //ID = 1
-                    //CreatePerson("Viserys", "Targaryen", 6, 5); //ID = 2
-                    //CreatePerson("Daenerys", "Targaryen", 6, 5); //ID = 3
-                    //CreatePerson("Elia", "Martell", 0, 0);
-                    //CreatePerson("Aerys", "Targaryen", 0, 0);
-                    //CreatePerson("Rhaella", "Targaryen", 0, 0);
-                    //CreatePerson("Lyanna", "Stark", 0, 0);
-                    //CreatePerson("Jon", "Snow", 7, 1);
-                    //CreatePerson("Rhaenys", "Targaryen", 4, 1);
-                    //CreatePerson("Aegon", "Targaryen", 4, 1);
                 }
             }
         }

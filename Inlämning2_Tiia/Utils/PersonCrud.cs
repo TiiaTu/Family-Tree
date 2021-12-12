@@ -12,7 +12,7 @@ namespace Inlämning2_Tiia
         public void Start()
         {
             using var db = new PersonContext();
-            Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer till listan
+            Utils.Helper.PeopleInDatabase.PersonsAdded(); //lägger till alla personer på listan
             db.SaveChanges();
             
             Menuclass.Menu();     
@@ -49,25 +49,19 @@ namespace Inlämning2_Tiia
 
         public static void FindParents(string firstName, string lastName)
         {
-            var momFirstName = "";
-            var momLastName = "";
-            var dadFirstName = "";
-            var dadLastName = "";
-
-            Console.WriteLine("Which parent do you want to find? \n[1] - Mother \n[2] - Father");
+            Console.WriteLine("\nWhich parent do you want to find? \n[1] - Mother \n[2] - Father");
             Console.Write(">");
 
             int.TryParse(Console.ReadLine(), out int menuChoise);
+            Console.Clear();
 
             switch (menuChoise)
             {
                 case 1:
                     Utils.Helper.Mother.FindMother(firstName, lastName);
-                    Utils.Helper.Mother.SetMother(firstName, lastName, momFirstName, momLastName);
                     break;
                 case 2:
                     Utils.Helper.Father.FindFather(firstName, lastName);
-                    Utils.Helper.Father.SetFather(firstName, lastName, dadFirstName, dadLastName);
                     break;
                 default:
                     Console.WriteLine("Enter 1 or 2");
@@ -201,7 +195,7 @@ namespace Inlämning2_Tiia
             }
         }
 
-        // helpermetod för ShowGrandparents()
+            //-------------helpermetod för ShowGrandparents()
         private static List<Person> GetParents(Person p) 
         {
             List<Person> parentsList = new List<Person>();
@@ -221,7 +215,7 @@ namespace Inlämning2_Tiia
 
             foreach (var person in db.People.OrderBy(n => n.LastName).ThenBy(n => n.FirstName))
             {
-                Console.WriteLine(person);
+                Console.WriteLine($"{person} (Id = {person.Id})");
             }
         }
 
@@ -240,7 +234,6 @@ namespace Inlämning2_Tiia
                 Console.WriteLine(p.FirstName + " " + p.LastName);
             }
         }
-
 
         //-----------------[9] Ta bort en person [9]---------------------------
         public static Person Delete(string firstName, string lastName)
@@ -262,8 +255,7 @@ namespace Inlämning2_Tiia
                 return person;
             }
         }
-
-        
+      
     }
 }
 
