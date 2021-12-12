@@ -97,6 +97,7 @@ namespace Inlämning2_Tiia.Utils.Helper
                             MotherId = 4,
                             FatherId = 1,
                         });
+                        
                         db.SaveChanges();
                     }
 

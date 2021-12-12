@@ -83,7 +83,7 @@ namespace Inlämning2_Tiia
 
         private static void Siblings()
         {
-            throw new NotImplementedException();
+            
         }
 
         private static void Update()
