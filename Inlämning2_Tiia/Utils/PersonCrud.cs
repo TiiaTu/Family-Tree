@@ -71,26 +71,23 @@ namespace Inlämning2_Tiia
 
         //-----------------[3] Uppdatera uppgifter [3]-----------------------------------------------
 
-        public static Person Update(string firstName, string lastName)
+        public static Person Update(string firstName, string lastName, string newFirstName, string newLastName)
         {
-            var newFirstName = "";
-            var newLastName = "";
-
             using (var db = new PersonContext())
             {
-                var update = db.People.FirstOrDefault(n => n.FirstName == firstName &&
+                var person = db.People.FirstOrDefault(n => n.FirstName == firstName &&
                                                             n.LastName == lastName);
 
-                if (update != null)
+                if (person != null)
                 {
-                    update.FirstName = newFirstName;
-                    update.LastName = newLastName;
+                    person.FirstName = newFirstName;
+                    person.LastName = newLastName;
 
                     db.SaveChanges();
                 }
                 else Console.WriteLine("This person doesn't exist!");
 
-                return update;
+                return person;
             }
         }
 
@@ -104,6 +101,7 @@ namespace Inlämning2_Tiia
                 if (person != null)
                 {
                     var siblings = db.People.Where(n => n.MotherId == person.MotherId || n.FatherId == person.FatherId).ToList();
+                    Console.Clear();
                     Console.WriteLine($"Siblings to {firstName} {lastName}; \n");
 
                     foreach (var sibling in siblings.OrderBy(s => s.FirstName).ThenBy(s => s.LastName))
@@ -235,8 +233,8 @@ namespace Inlämning2_Tiia
             }
         }
 
-        //-----------------[9] Ta bort en person [9]---------------------------
-        public static Person Delete(string firstName, string lastName)
+        //-----------------[9a] Ta bort en person via namn [9a]---------------------------
+        public static Person DeleteByName(string firstName, string lastName)
         {
             using (var db = new PersonContext())
             {
@@ -255,7 +253,23 @@ namespace Inlämning2_Tiia
                 return person;
             }
         }
-      
+        //-----------------[9b] Ta bort en person via Id [9b]---------------------------
+
+        public static Person DeleteById(int id)
+        {
+            using (var db = new PersonContext())
+            {
+                var person = db.People.FirstOrDefault(n => n.Id == id);
+
+                if (person != null)
+                {
+                    db.People.Remove(person);
+                    db.SaveChanges();
+                    Console.WriteLine($"You deleted {person} succesfully.");
+                }
+                return person;
+            }
+        }
     }
 }
 

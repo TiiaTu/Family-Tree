@@ -101,35 +101,9 @@ namespace Inlämning2_Tiia.Utils.Helper
                         
                         db.SaveChanges();
                     }
-
                     checker.SaveChanges();
                 }
             }
         }
-        public static Person CreatePerson(string firstName, string lastName, int motherId, int fatherId)
-        {
-
-            using (var db = new PersonContext())
-            {
-                var person = db.People.
-                            FirstOrDefault(
-                                p => p.FirstName == firstName &&
-                                p.LastName == lastName &&
-                                p.MotherId == motherId &&
-                                p.FatherId == fatherId
-                                );
-
-                if (person == null) // skapa personen om den inte finns
-                {
-                    person = new Person { FirstName = firstName, LastName = lastName, MotherId = motherId, FatherId = fatherId };
-
-                    db.People.Add(person);
-                    db.SaveChanges();
-                }
-                return person;
-            }
-        }
-
-
     }
 }

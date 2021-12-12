@@ -62,8 +62,29 @@ namespace Inlämning2_Tiia
 
         private static void Delete()
         {
-            HeaderAndName("DELETE A PERSON\n", out string firstName, out string lastName);
-            PersonCrud.Delete(firstName, lastName);
+            Header("DELETE A PERSON");
+
+            Write("\nHow fo you want to delete this person?\n");
+            Write("[1] - by Id \n[2] - by name\n[3] - back to menu\n ");
+            var input = UserInput();
+
+            switch(input)
+            {
+                case 1:
+                    Write("Enter id: ");
+                    var id = UserInput();
+                    PersonCrud.DeleteById(id); 
+                    break;
+                case 2:
+                    AskForWholeName(out string firstName, out string lastName);
+                    PersonCrud.DeleteByName(firstName, lastName); 
+                    break;
+                case 3:
+                    break;
+                default: 
+                    Write("Enter 1 or 2"); 
+                    break;
+            }
         }
 
         private static void ByLetter()
@@ -99,7 +120,13 @@ namespace Inlämning2_Tiia
         private static void Update()
         {
             HeaderAndName("UPDATE INFORMATION OF A PERSON\t", out string firstName, out string lastName);
-            PersonCrud.Update(firstName, lastName);
+            
+            Write("Enter new first name: ");
+            var newFirstName = Console.ReadLine();
+            Write("Enter new last name: ");
+            var newLastName = Console.ReadLine();
+            
+            PersonCrud.Update(firstName, lastName, newFirstName, newLastName);
         }
 
         private static void Parents()
@@ -119,14 +146,23 @@ namespace Inlämning2_Tiia
 
         private static void HeaderAndName(string header, out string firstName, out string lastName)
         {
-            Write("\t");
-            Write(header);
-            Write("\n\t----------------");
+            Header(header);
+            AskForWholeName(out firstName, out lastName);
+        }
 
+        private static void AskForWholeName(out string firstName, out string lastName)
+        {
             Write("\nEnter person's first name: ");
             firstName = Console.ReadLine();
             Write("Enter person's last name: ");
             lastName = Console.ReadLine();
+        }
+
+        private static void Header(string header)
+        {
+            Write("\t");
+            Write(header);
+            Write("\n\t----------------");
         }
 
         private static void Write(string message)

@@ -29,7 +29,7 @@ namespace Inlämning2_Tiia.Utils.Helper
                     else
                     {
                         Console.WriteLine($"Could not find mother to {person.FirstName}");
-                        Console.WriteLine("Do you want to change mother? y/n \n(if you want to add a mother, create a new person via menu first) y/n");
+                        Console.WriteLine("Do you want to change mother? (if you want to add a mother, create a new person via menu first)\n y/n ?");
                         var input = Console.ReadLine().ToLower().Trim();
 
                         if (input == "y")

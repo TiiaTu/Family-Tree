@@ -16,17 +16,17 @@ namespace Inlämning2_Tiia.Utils
 
             Console.WriteLine("Welcome to the Targaryen family tree\n");
 
-            Console.WriteLine(@"[1] - Create a person
-[2] - Find parents
-[3] - Update information
-[4] - Show siblings
-[5] - Show children
-[6] - Show grandparents
-[7] - List all
-[8] - List by letter
-[9] - Delete person
-[10] - Exit");
-
+            Console.WriteLine("   [1] - Create a person\n"+
+                                "   [2] - Find parents\n"+
+                                "   [3] - Update information\n"+
+                                "   [4] - Show siblings\n"+
+                                "   [5] - Show children\n"+
+                                "   [6] - Show grandparents\n"+
+                                "   [7] - List all\n"+
+                                "   [8] - List by letter\n"+
+                                "   [9] - Delete person\n"+
+                                "   [10] - Exit");
+            
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>");
             Console.ResetColor();
