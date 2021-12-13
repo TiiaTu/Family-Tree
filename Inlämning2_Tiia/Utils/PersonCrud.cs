@@ -270,6 +270,7 @@ namespace Inlämning2_Tiia
                 return person;
             }
         }
+
         //-----------------[9b] Ta bort en person via Id [9b]---------------------------
 
         public static Person DeleteById(int id)
